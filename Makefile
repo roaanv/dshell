@@ -1,3 +1,3 @@
 image:
-	docker build --platform linux/arm64,linux/amd64 -t rvos-docker-shell:latest .
-	docker tag rvos-docker-shell:latest docker.spacehuis.net/rvos-docker-shell:latest
+	docker build --platform linux/arm64,linux/amd64 -t roaanv/dshell:latest .
+	docker tag dshell:latest docker.spacehuis.net/dshell:latest
