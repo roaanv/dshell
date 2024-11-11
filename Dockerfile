@@ -13,7 +13,9 @@ RUN apk update &&  \
     busybox-extras \
     bind-tools \
     curl \
-    aws-cli
+    aws-cli \
+    git \
+    openssh
 
 COPY --from=build /out/the-app /bin
 

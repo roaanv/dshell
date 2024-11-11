@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dshell-deployment
+  labels:
+    app: dshell
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dshell
+  template:
+    metadata:
+      labels:
+        app: dshell
+    spec:
+      containers:
+      - name: dshell
+        image: roaanv/dshell:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
