@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	log "github.com/sirupsen/logrus"
+	"github.com/segmentio/ksuid"
 	"net/http"
 	"os"
 	"runtime"
@@ -22,8 +23,11 @@ func init() {
     }
     // set global log level
     log.SetLevel(ll)
+	log.Debugln("'init' called")
 }
 
+
+var instanceId string = ksuid.New().String()
 
 // album represents data about a record album.
 func main() {
@@ -31,6 +35,7 @@ func main() {
 	router.GET("/", home(router))
 	router.GET("/ping", ping)
 	router.GET("/arch", arch)
+	router.GET("/id", getInstanceId)
 	router.GET("/healthcheck", healthcheck)
 	router.GET("/probe/live", liveProbe)
 	router.GET("/probe/ready", readyProbe)
@@ -66,6 +71,13 @@ func arch(c *gin.Context) {
 	log.Debugln(fmt.Sprintf("called '/%s'", c.Request.URL.Path))
 	c.IndentedJSON(http.StatusOK, gin.H{
 		"message": fmt.Sprintf("%s/%s", runtime.GOOS, runtime.GOARCH),
+	})
+}
+
+func getInstanceId(c *gin.Context) {
+	log.Debugln(fmt.Sprintf("called '/%s'", c.Request.URL.Path))
+	c.IndentedJSON(http.StatusOK, gin.H{
+		"id": instanceId,
 	})
 }
 
